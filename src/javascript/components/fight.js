@@ -95,21 +95,20 @@ function updateHealthIndicator(defender, indicator) {
 } 
 function getDamage(attacker, defender) {
   // return damage
-  const hitPower = getHitPower(attacker);
-  const blockPower = getBlockPower(defender);
-  return blockPower < hitPower ? hitPower - blockPower : 0
+  return Math.max(0, getHitPower(attacker) - getBlockPower(defender))
 }
 function getHitPower(fighter) {
-  console.log(fighter)
   // return hit power
-  const criticalHitChance = getChance(1, 2);
-  return fighter.attack * criticalHitChance;
+  const randomNumber = getRandomNum(1,2);
+  const attack = fighter.attack;
+  return  randomNumber * attack;
 }
 function getBlockPower(fighter) {
   // return block power
-  const dodgeChance = getChance(1,2);
-  return fighter.defense * dodgeChance;
+  const randomNumber = getRandomNum(1,2);
+  const defense = fighter.defense;
+  return randomNumber * defense;
 }
-function getChance(min, max) {
+function getRandomNum(min, max) {
   return Math.random() * (max - min) + min;
 }
